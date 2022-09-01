@@ -2,9 +2,10 @@ package com.zombie.zombie.model;
 
 import lombok.Data;
 
-import java.util.List;
+import javax.validation.constraints.NotBlank;
 
 @Data
 public class Board {
-    private List<GameObject> GOOnBoard;
+    @NotBlank
+    public static int gridSize;
 }

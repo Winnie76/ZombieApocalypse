@@ -2,37 +2,68 @@ package com.zombie.zombie.model;
 
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 @Data
 public class Cell {
-    // [x, y]
-    private List<Integer> pos;
-    // game objects on cell
-    private List<GameObject> GOOnCell;
 
-    public Cell(List<Integer> pos) {
-        this.pos = pos;
-        this.GOOnCell = new ArrayList<>();
+    public static class Zombie {
+        private int x;
+        private int y;
+
+        public Zombie() {
+        }
+
+        public Zombie(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public void setX(int x) {
+            this.x = x;
+        }
+
+        public int getY() {
+            return y;
+        }
+
+        public void setY(int y) {
+            this.y = y;
+        }
     }
 
-    public Cell(List<Integer> pos, List<GameObject> GOOnCell) {
-        this.pos = pos;
-        this.GOOnCell = GOOnCell;
+    public class Creature {
+        private int x;
+        private int y;
+        private boolean isInfected = false;
+
+        public int getX() {
+            return x;
+        }
+
+        public void setX(int x) {
+            this.x = x;
+        }
+
+        public int getY() {
+            return y;
+        }
+
+        public void setY(int y) {
+            this.y = y;
+        }
+
+        public boolean isInfected() {
+            return isInfected;
+        }
+
+        public void setInfected(boolean infected) {
+            isInfected = infected;
+        }
+
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Cell cell = (Cell) o;
-        return pos.equals(cell.pos);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(pos);
-    }
 }

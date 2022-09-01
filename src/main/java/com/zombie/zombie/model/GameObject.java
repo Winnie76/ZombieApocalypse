@@ -1,65 +1,74 @@
 package com.zombie.zombie.model;
 
-import lombok.Data;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
+import static com.zombie.zombie.model.Board.gridSize;
+
 public class GameObject {
-    private boolean infected;
-	private Board board;
-    private Cell curCell;
+    public static List<Cell.Zombie> newZombies = new ArrayList<>();
+    public static List<Cell.Creature> infectiousCreatures = new ArrayList<>();
+    public static List<Cell.Creature> creatures;
+    public static Cell.Zombie zombie;
+    private static String direction;
 
-    public GameObject(Cell curCell, Boolean infected, Integer boardSize) {
-        this.curCell = curCell;
-        this.infected = infected;
-        this.boardSize = boardSize;
+    public static void moving(Cell.Zombie zombie) {
+        String directions = direction.toUpperCase();
+        char[] direction = directions.toCharArray();
+        for (char ch : direction) {
+            if (ch == 'R') {
+                zombie.setX((zombie.getX() - 1));
+                overWall(zombie);
+                isHasCreatures(zombie);
+            }
+            if (ch == 'L') {
+                zombie.setX((zombie.getX() + 1));
+                overWall(zombie);
+                isHasCreatures(zombie);
+            }
+            if (ch == 'D') {
+                zombie.setY((zombie.getY() - 1));
+                overWall(zombie);
+                isHasCreatures(zombie);
+            }
+            if (ch == 'U') {
+                zombie.setY((zombie.getY() + 1));
+                overWall(zombie);
+                isHasCreatures(zombie);
+            }
+        }
+        newZombies.add(zombie);
+
     }
 
-    public void move(String direction, int boardSize){
-		// move
-		List<Integer> pos = this.curCell.getPos();
-		List<Integer> newPos = pos.clone();
-		// Integer x = pos.get(0);
-		// Integer y = pos.get(1);
+    private static void overWall(Cell.Zombie zombie) {
+        if (zombie.getX() >= gridSize) {
+            zombie.setX(0);
+        }
+        if (zombie.getX() < 0) {
+            zombie.setX((zombie.getX() + gridSize));
+        }
+        if (zombie.getY() >= gridSize) {
+            zombie.setY(0);
+        }
+        if (zombie.getY() < 0) {
+            zombie.setY((zombie.getY() + gridSize));
+        }
 
-		// Integer new_x = x % n;
-		// Integer new_y = y % n;
-		Method moveMethod
-		= GameObject.class.getDeclaredMethod(String.format("moveOne%s", direction), Integer.class);
 
-		if (direction == "R" or direction == "L") {
-			newPos[0] = moveMethod(pos[0]);
-		} else {
-			newPos[1] = moveMethod(newPos[1]);
-		}
-
-		this.setCurCell(newPos);
-
-		if (this.infected) {
-			this.infectOthers();
-		}
-    }
-    public String getName() {
-        return this.infected ? "Zombie" : "Creature";
     }
 
-	private void infectOthers() {
-		List<GameObject> GOList = this.curCell.getGOOnCell();
-	}
+    private static void isHasCreatures(Cell.Zombie zombie) {
+        for (Cell.Creature creature : creatures) {
+            if (creature.getX() == zombie.getX() && creature.getY() == zombie.getY() && !creature.isInfected()) {
+                creature.setInfected(true);
+                infectiousCreatures.add(creature);
+                moving(new Cell.Zombie(zombie.getX(), zombie.getY()));
+            }
+        }
+    }
 
-	public void setCurCell(List<Integer> newPos) {
-		// board.getCell(newPos);
-	}
 
-	private static Integer moveOneR(Integer i){
-		return (i + this.boardSize + 1) % n;
-	}
-	private static Integer moveOneL(Integer i){
-		return (i + this.boardSize - 1) % n;
-	}
-	private static Integer moveOneU(Integer i){
-		return (i + this.boardSize - 1) % n;
-	}
-	private static Integer moveOneD(Integer i){
-		return (i + this.boardSize + 1) % n;
-	}
 }
+
+
