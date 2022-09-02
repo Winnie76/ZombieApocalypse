@@ -26,10 +26,12 @@ public class Cell {
         private boolean isInfected = false;
 
         public boolean isInfected() {
+
             return isInfected;
         }
 
         public void setInfected(boolean infected) {
+
             isInfected = infected;
         }
     }

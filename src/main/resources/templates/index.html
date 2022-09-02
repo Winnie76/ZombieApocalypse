@@ -4,54 +4,53 @@
     <meta charset="UTF-8">
     <title>zombie game</title>
     <script src="js/jquery-1.10.2.min.js"></script>
-<!--    <link rel="stylesheet" type="text/css" href="../static/style/style.css">-->
     <style>
         #textarea {
             width: 500px;
             height: 100px;
         }
+
+
     </style>
 </head>
 <body>
-<div>
-    <label for="gridSize">Grid Size</label>
-    <input id="gridSize" type="text" name="gridName" >
-</div>
-
-<div>
+<div class="information">
+    <label class="information-name boardSize" for="gridSize">Grid Size</label>
+    <input id="gridSize" type="text" name="gridName">
     <br/>
-    <label for="zombieX">Zombie x:</label>
-    <input id="zombieX" type="number"  />
-    <label for="zombieY">Zombiey:</label>
-    <input id="zombieY" type="number"/><br/>
-    <label for="command">Moving Direction:</label>
+    <label class="information-name zombieLocationX" for="zombieX">Zombie x:</label>
+    <input id="zombieX" type="number"/>
+    <label class="information-name zombieLocationY" for="zombieY">Zombiey:</label>
+    <input id="zombieY" type="number"/>
+    <br/>
+    <label class="information-name gameObject" for="command">Moving Direction:</label>
     <input id="command" type="text"/>
 </div>
 
-<div>
-    <label for="creatureX1">Creature x:</label>
-    <input id="creatureX1" type="number" />
-    <label for="creatureY1">Creature y:</label>
-    <input id="creatureY1" type="number"/><br/>
-    <label for="creatureX2">Creature x:</label>
-    <input id="creatureX2" type="number" />
-   <label for="creatureY2"> Creature y:</label>
-    <input id="creatureY2" type="number"/><br/>
-
-    <label for="creatureX3">Creature x:</label>
-    <input id="creatureX3" type="number" />
-    <label for="creatureY3">Creature y:</label>
-    <input id="creatureY3" type="number"/><br/>
-    <input id="button" type="submit" value="submit"   />
-    <button onclick="getGridSize()">Try it</button>
-
+<div class="creature">
+    <label class="creature-name creature1-X" for="creatureX1">Creature x:</label>
+    <input id="creatureX1" type="number"/>
+    <label class="creature-name creature1-Y" for="creatureY1">Creature y:</label>
+    <input id="creatureY1" type="number"/>
+    <br/>
+    <label class="creature-name creature2-X" for="creatureX2">Creature x:</label>
+    <input id="creatureX2" type="number"/>
+    <label class="creature-name creature2-Y" for="creatureY2"> Creature y:</label>
+    <input id="creatureY2" type="number"/>
+    <br/>
+    <label class="creature-name creature3-X" for="creatureX3">Creature x:</label>
+    <input id="creatureX3" type="number"/>
+    <label class="creature-name creature3-Y" for="creatureY3">Creature y:</label>
+    <input id="creatureY3" type="number"/>
+    <br/>
+    <input class="but begin-but" id="button" type="submit" value="Begin"/>
 </div>
 
-<div>
+<div class="result">
     <label for="textarea"></label>
-    <textarea id="textarea" ></textarea>
+    <textarea id="textarea"></textarea>
 </div>
-<p id="demo">3</p>
+
 <script src="js/js.js"></script>
 
 
