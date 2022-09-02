@@ -2,58 +2,28 @@ package com.zombie.zombie.model;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 public class Cell {
 
     public static class Zombie {
-        private int x;
-        private int y;
-
-        public Zombie() {
-        }
+        @NotBlank
+        public int x;
+        @NotBlank
+        public int y;
 
         public Zombie(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
 
-        public int getX() {
-            return x;
-        }
-
-        public void setX(int x) {
-            this.x = x;
-        }
-
-        public int getY() {
-            return y;
-        }
-
-        public void setY(int y) {
-            this.y = y;
         }
     }
 
-    public class Creature {
-        private int x;
-        private int y;
+    public static class Creature {
+        @NotBlank
+        public int x;
+        @NotBlank
+        public int y;
         private boolean isInfected = false;
-
-        public int getX() {
-            return x;
-        }
-
-        public void setX(int x) {
-            this.x = x;
-        }
-
-        public int getY() {
-            return y;
-        }
-
-        public void setY(int y) {
-            this.y = y;
-        }
 
         public boolean isInfected() {
             return isInfected;
@@ -62,8 +32,5 @@ public class Cell {
         public void setInfected(boolean infected) {
             isInfected = infected;
         }
-
     }
-
-
 }

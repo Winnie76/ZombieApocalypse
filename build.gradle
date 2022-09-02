@@ -21,14 +21,23 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    // https://mvnrepository.com/artifact/javax.validation/validation-api
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+    implementation 'org.codehaus.groovy:groovy-json:3.0.12'
+    // https://mvnrepository.com/artifact/org.json/json
+//    implementation 'org.json:json:20220320
+    implementation group: 'com.alibaba', name: 'fastjson', version: '2.0.12'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.5.4'
+// https://mvnrepository.com/artifact/com.alibaba/fastjson
+    implementation 'com.alibaba:fastjson:2.0.12'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    // https://mvnrepository.com/artifact/javax.validation/validation-api
-    implementation 'javax.validation:validation-api:2.0.1.Final'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 tasks.named('test') {
