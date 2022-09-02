@@ -19,30 +19,28 @@ public class GameObject {
 
     public void setInfection(boolean isInfected){
         this.infected = isInfected;
-//        System.out.println("zombie " + zombieNum + " infected creature at ");
-    }
-
-    public void setObjectPosition(List<Integer> newPosition){
-        this.objectPosition = newPosition;
     }
 
     public List<Integer> getObjectPosition(){
         return this.objectPosition;
     }
 
-    public void setMoveComplete(boolean completed){
-        this.moveCompleted = completed;
+    public void setObjectPosition(List<Integer> newPosition){
+        this.objectPosition = newPosition;
     }
 
     public boolean getMoveComplete(){
         return this.moveCompleted;
     }
-
-    public void setZombieNum(int number){
-        this.zombieNum = number;
+    public void setMoveComplete(boolean completed){
+        this.moveCompleted = completed;
     }
 
     public int getZombieNum(){
         return this.zombieNum;
+    }
+
+    public void setZombieNum(int number){
+        this.zombieNum = number;
     }
 }

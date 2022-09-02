@@ -22,6 +22,7 @@ public class ZombieApocalypse {
 
     public Map<List<Integer>, List<GameObject>> generateWorld(int n, Map<String, Integer> zombies, List<Map<String, Integer>> creatures){
 
+        // initiate world to {[0, 0]: [ ], [0, 1]: [ ], [0, 2]: [ ],...}
         Map<List<Integer>, List<GameObject>> worldGenerated = new HashMap<>();
         for (int i = 0; i < n; i++){
             for (int j = 0; j < n; j++){
@@ -30,16 +31,19 @@ public class ZombieApocalypse {
                 worldGenerated.put(position, emptyGameObjectList);
             }
         }
+
+        // add zombie to the right cell
         List<Integer> zombiePos = Arrays.asList(zombies.get("x"), zombies.get("y"));
         List<GameObject> objectsSameCell = worldGenerated.get(zombiePos);
         GameObject zombieOne = new GameObject(ISINFECTED, MOVENOTCOMPLETED, this.zombieNumber, zombiePos);
+        this.zombieNumber = this.zombieNumber + 1;
         objectsSameCell.add(zombieOne);
         worldGenerated.put(zombiePos, objectsSameCell);
 
+        // add zombie to the zombie movement waiting list
         this.zombiesWaiting.add(zombieOne);
-        System.out.println("initial zombie waiting list");
-        System.out.println(this.zombiesWaiting);
 
+        // add creatures to the right cell
         for (Map<String, Integer> creature: creatures){
             List<Integer> creaturePos = Arrays.asList(creature.get("x"), creature.get("y"));
             List<GameObject> onSameCell = worldGenerated.get(creaturePos);
@@ -47,18 +51,16 @@ public class ZombieApocalypse {
             onSameCell.add(creatureOne);
             worldGenerated.put(creaturePos, onSameCell);
         }
-        System.out.println("creatures");
-        System.out.println(creatures);
-        System.out.println("zombies");
-        System.out.println(zombies);
+
         System.out.println("initial world generated");
         System.out.println(worldGenerated);
-
 
         return worldGenerated;
     }
 
     public static void main(String[] args) {
+
+        // create test data
         Map<String, Integer> zombieList = new HashMap<String, Integer>();
         zombieList.put("x", 3);
         zombieList.put("y", 1);
@@ -77,28 +79,39 @@ public class ZombieApocalypse {
         creatureList.add(creatureThree);
 
         int boardSize = 4;
-        ZombieApocalypse zombieApocalypse =
-                new ZombieApocalypse(boardSize, "RDRU", zombieList, creatureList);
-        System.out.print(zombieApocalypse.world);
+        String sequence = "RDRU";
 
+        // create object zombieApocalypse
+        ZombieApocalypse zombieApocalypse =
+                new ZombieApocalypse(boardSize, sequence, zombieList, creatureList);
+
+        // loop through all zombies waiting for movement, execute movement one by one
         while (zombieApocalypse.zombiesWaiting.size() != 0){
             GameObject currentZombie = zombieApocalypse.zombiesWaiting.get(0);
-            System.out.println("yes first zombie");
             for (int n = 0; n < zombieApocalypse.moveSequence.length(); n++){
                 char nextMove = zombieApocalypse.moveSequence.charAt(n);
                 zombieApocalypse.zombieMove(nextMove, currentZombie, boardSize);
-                System.out.println("check move infection");
-                System.out.println(zombieApocalypse.zombiesWaiting);
 
             }
-            currentZombie.setMoveComplete(true);
+            currentZombie.setMoveComplete(MOVECOMPLETED);
             zombieApocalypse.zombiesWaiting.remove(0);
         }
-        System.out.println("everything is done");
+        System.out.println("final positions of all zombies and creatures:");
+        for (List<GameObject> gameObjectsEachCell : zombieApocalypse.world.values()) {
+            if (gameObjectsEachCell.size() > 0){
+                for (GameObject oneGameObj: gameObjectsEachCell){
+                    System.out.println("print each game object in the final world");
+                    System.out.println(oneGameObj.getObjectPosition());
+                    System.out.println(oneGameObj.getZombieNum());
+                    System.out.println("is this game object infected? " + oneGameObj.getInfection());
+
+
+                }
+            }
+        }
+        System.out.println("final world generated");
         System.out.println(zombieApocalypse.world);
 
-        System.out.println("final zombie waiting list");
-        System.out.println(zombieApocalypse.zombiesWaiting);
 
 
 
@@ -106,65 +119,64 @@ public class ZombieApocalypse {
     }
 
     public void zombieMove(char nextMove, GameObject currZombie, int boardSize){
+        // get new position value after movement
         List<Integer> newPos = null;
         if (nextMove == 'U'){
-            System.out.println("U executed");
             if (currZombie.getObjectPosition().get(1) == 0){
                 newPos = Arrays.asList(currZombie.getObjectPosition().get(0), boardSize-1);
-
             }
             else{
                 newPos = Arrays.asList(currZombie.getObjectPosition().get(0), currZombie.getObjectPosition().get(1)-1);
             }
-            System.out.println(newPos);
+            System.out.println("zombie " + currZombie.getZombieNum() + " moved to (" + newPos.get(0) + ", " + newPos.get(1) + ").");
         }else if (nextMove == 'D'){
-            System.out.println("D executed");
-
             if (currZombie.getObjectPosition().get(1) == boardSize-1){
                 newPos = Arrays.asList(currZombie.getObjectPosition().get(0), 0);
             }
             else{
                 newPos = Arrays.asList(currZombie.getObjectPosition().get(0), currZombie.getObjectPosition().get(1)+1);
             }
-            System.out.println(newPos);
-
+            System.out.println("zombie " + currZombie.getZombieNum() + " moved to (" + newPos.get(0) + ", " + newPos.get(1) + ").");
         }else if (nextMove == 'L'){
-            System.out.println("L executed");
-
             if (currZombie.getObjectPosition().get(0) == 0){
                 newPos = Arrays.asList(boardSize-1, currZombie.getObjectPosition().get(1));
             }
             else{
                 newPos = Arrays.asList(currZombie.getObjectPosition().get(0)-1, currZombie.getObjectPosition().get(1));
             }
-            System.out.println(newPos);
+            System.out.println("zombie " + currZombie.getZombieNum() + " moved to (" + newPos.get(0) + ", " + newPos.get(1) + ").");
         }else if (nextMove == 'R'){
-            System.out.println("R executed");
-
             if (currZombie.getObjectPosition().get(0) == boardSize-1){
                 newPos = Arrays.asList(0, currZombie.getObjectPosition().get(1));
             }
             else{
                 newPos = Arrays.asList(currZombie.getObjectPosition().get(0)+1, currZombie.getObjectPosition().get(1));
             }
-            System.out.println(newPos);
+            System.out.println("zombie " + currZombie.getZombieNum() + " moved to (" + newPos.get(0) + ", " + newPos.get(1) + ").");
         }else{
             System.out.println("not a valid character");
         }
+
+        // remove GameObject zombie from previous cell
         List<GameObject> listAfterRemoval = this.world.get(currZombie.getObjectPosition());
         listAfterRemoval.remove(currZombie);
         this.world.put(currZombie.getObjectPosition(), listAfterRemoval);
+
+        // add GameObject zombie to new cell after movement
         List<GameObject> listAddNewObj = this.world.get(newPos);
         listAddNewObj.add(currZombie);
         this.world.put(newPos, listAddNewObj);
+
+        //update GameObject zombie 's position
         currZombie.setObjectPosition(newPos);
 
+        // set creatures on the same cell to be infected and add to zombie movement waiting list
         for (int k = 0; k < this.world.get(newPos).size(); k++){
-            if (this.world.get(newPos).get(k).getInfection() == false){
-                System.out.println("yes adding infected creature!!!!!!!!!!!!");
-
-                this.world.get(newPos).get(k).setInfection(true);
-                this.world.get(newPos).get(k).setZombieNum(this.zombieNumber+1);
+            if (this.world.get(newPos).get(k).getInfection() == NOTINFECTED){
+                System.out.println("zombie " + currZombie.getZombieNum() + " infected creature at (" + newPos.get(0) + ", " + newPos.get(1) + ")");
+                this.world.get(newPos).get(k).setInfection(ISINFECTED);
+                this.world.get(newPos).get(k).setZombieNum(this.zombieNumber);
+                this.zombieNumber = this.zombieNumber + 1;
                 this.zombiesWaiting.add(this.world.get(newPos).get(k));
             }
         }
