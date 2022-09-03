@@ -14,7 +14,8 @@ public class Cell {
         public int y;
 
         public Zombie(int x, int y) {
-
+            this.x = x;
+            this.y = y;
         }
     }
 
