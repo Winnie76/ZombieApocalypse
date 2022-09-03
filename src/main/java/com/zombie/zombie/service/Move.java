@@ -45,14 +45,14 @@ public class Move {
                 zombie.y = overWallPos.get(zombie.y);
             }
 
-            isHasCreatures(zombie);
+            infectOthers(zombie);
         }
         newZombies.add(zombie);
 
     }
 
 
-    private static void isHasCreatures(Cell.Zombie zombie) {
+    private static void infectOthers(Cell.Zombie zombie) {
         for (Cell.Creature creature : creatures) {
             if (creature.x == zombie.x && creature.y == zombie.y && !creature.isInfected()) {
                 creature.setInfected(true);
