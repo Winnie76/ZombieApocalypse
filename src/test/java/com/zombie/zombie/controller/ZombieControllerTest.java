@@ -68,8 +68,8 @@ class ZombieControllerTest {
     @Test
     void getCorrectResponse() throws Exception {
         this.mockMvc.perform(post("/getValue").contentType(MediaType.APPLICATION_JSON).content(payload))
+                // FIXME: still not ideal. Should compare json objects.
                 .andExpect(MockMvcResultMatchers.content().string("""
-                        {"creatures":[],"zombies":[{"x":3,"y":1},{"x":3,"y":2},{"x":2,"y":1},{"x":1,"y":1}]}
-                                                    """));
+                        {"creatures":[],"zombies":[{"x":3,"y":1},{"x":3,"y":2},{"x":2,"y":1},{"x":1,"y":1}]}"""));
     }
 }
