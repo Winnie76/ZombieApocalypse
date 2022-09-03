@@ -30,7 +30,7 @@ public class ZombieController {
         HashMap<Object, Object> map = new HashMap<>();
         map.put("grid-size", gridSize);
         map.put("zombies", newZombies);
-        creatures.removeAll(Move.infectiousCreatures);
+        creatures.removeAll(Move.infectedCreatures);
         map.put("creatures", creatures);
         return map;
     }
@@ -43,7 +43,7 @@ public class ZombieController {
         creatures = Arrays.stream(creatureArr).collect(Collectors.toList());
         Character.action = jsonObject.get("commands").toString();
         newZombies = new ArrayList<>();
-        infectiousCreatures = new ArrayList<>();
+        infectedCreatures = new ArrayList<>();
     }
 
 }
