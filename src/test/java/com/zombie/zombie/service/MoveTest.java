@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MoveTest {
 
@@ -89,5 +90,25 @@ class MoveTest {
         Move.move(zombie);
         assertEquals(0, zombie.x);
         assertEquals(2, zombie.y);
+    }
+
+    @Test
+    void multipleCreaturesInCellOne() {
+        Board.gridSize = 3;
+        GameCharacter.action = "DD";
+        GameCharacter creature1 = new GameCharacter(1, 1, false);
+        GameCharacter creature2 = new GameCharacter(1, 1, false);
+        Move.move(zombie);
+        assertTrue(creature1.isInfected());
+    }
+
+    @Test
+    void multipleCreaturesInCellTwo() {
+        Board.gridSize = 3;
+        GameCharacter.action = "DD";
+        GameCharacter creature1 = new GameCharacter(1, 1, false);
+        GameCharacter creature2 = new GameCharacter(1, 1, false);
+        Move.move(zombie);
+        assertTrue(creature2.isInfected());
     }
 }

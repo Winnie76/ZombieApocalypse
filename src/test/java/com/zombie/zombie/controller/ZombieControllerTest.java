@@ -22,15 +22,27 @@ class ZombieControllerTest {
     @BeforeEach
     void setUp() {
         payload = """
-                {"gridSize": 4, "commands": "UDRR", "zombie": {
-                    "x": 1,
-                    "y": 2
-                },
-
-                "creatures":[
-                    {"x": 1, "y": 0},
-                    {"x": 1, "y": 1}
-                ]
+                                {
+                    "gridSize": 4,
+                    "zombie": {
+                        "x": 3,
+                        "y": 1
+                    },
+                    "creatures": [
+                        {
+                            "x": 0,
+                            "y": 1
+                        },
+                        {
+                            "x": 1,
+                            "y": 2
+                        },
+                        {
+                            "x": 1,
+                            "y": 1
+                        }
+                    ],
+                    "commands": "RDRU"
                 }
                                 """;
     }
@@ -50,5 +62,14 @@ class ZombieControllerTest {
     void getHttpStatusCode201() throws Exception {
         this.mockMvc.perform(post("/getValue").contentType(MediaType.APPLICATION_JSON).content(payload))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
+    }
+
+
+    @Test
+    void getCorrectResponse() throws Exception {
+        this.mockMvc.perform(post("/getValue").contentType(MediaType.APPLICATION_JSON).content(payload))
+                .andExpect(MockMvcResultMatchers.content().string("""
+                        {"creatures":[],"zombies":[{"x":3,"y":1},{"x":3,"y":2},{"x":2,"y":1},{"x":1,"y":1}]}
+                                                    """));
     }
 }
