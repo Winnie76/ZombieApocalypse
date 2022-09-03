@@ -3,7 +3,7 @@ package com.zombie.zombie.controller;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.zombie.zombie.model.Cell;
-import com.zombie.zombie.model.GameObject;
+import com.zombie.zombie.model.Character;
 import com.zombie.zombie.servise.Move;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +40,7 @@ public class ZombieController {
         zombie = JSON.parseObject(jsonObject.get("zombie").toString(), Cell.Zombie.class);
         Cell.Creature[] creatureArr = JSON.parseObject(jsonObject.get("creatures").toString(), Cell.Creature[].class);
         creatures = Arrays.stream(creatureArr).collect(Collectors.toList());
-        GameObject.action = jsonObject.get("commands").toString();
+        Character.action = jsonObject.get("commands").toString();
         newZombies = new ArrayList<>();
         infectiousCreatures = new ArrayList<>();
     }

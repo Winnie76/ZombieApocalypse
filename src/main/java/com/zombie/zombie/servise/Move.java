@@ -1,7 +1,7 @@
 package com.zombie.zombie.servise;
 
 import com.zombie.zombie.model.Cell;
-import com.zombie.zombie.model.GameObject;
+import com.zombie.zombie.model.Character;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -19,9 +19,9 @@ public class Move {
     public static Cell.Zombie zombie;
 
     public static void moving(Cell.Zombie zombie) {
-        String directions = GameObject.action.toUpperCase();
+        String directions = Character.action.toUpperCase();
         char[] direction = directions.toCharArray();
-        Map<Integer, Integer> overWallPos = new HashMap<>(){{
+        Map<Integer, Integer> overWallPos = new HashMap<>() {{
             put(gridSize, 0);
             put(-1, gridSize - 1);
         }};
@@ -38,10 +38,10 @@ public class Move {
             if (ch == 'U') {
                 zombie.y = (zombie.y + 1);
             }
-            
+
             if (zombie.x >= gridSize || zombie.x < 0) {
                 zombie.x = overWallPos.get(zombie.x);
-            }else if (zombie.y >= gridSize || zombie.y < 0) {
+            } else if (zombie.y >= gridSize || zombie.y < 0) {
                 zombie.y = overWallPos.get(zombie.y);
             }
 
