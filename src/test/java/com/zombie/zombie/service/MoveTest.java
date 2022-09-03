@@ -104,6 +104,8 @@ class MoveTest {
 
     @Test
     void multipleCreaturesInCellTwo() {
+        // FIXME: Still failing.
+        // Cell needs to know about its GameCharacters.
         Board.gridSize = 3;
         GameCharacter.action = "DD";
         GameCharacter creature1 = new GameCharacter(1, 1, false);
