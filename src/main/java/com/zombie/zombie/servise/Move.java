@@ -5,7 +5,9 @@ import com.zombie.zombie.model.GameObject;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.zombie.zombie.model.Board.gridSize;
 
@@ -46,19 +48,12 @@ public class Move {
     }
 
     private static void overWall(Cell.Zombie zombie) {
-        if (zombie.x >= gridSize) {
-            zombie.x = 0;
-        }
-        if (zombie.x < 0) {
-            zombie.x = (zombie.x + gridSize);
-        }
-        if (zombie.y >= gridSize) {
-            zombie.y = 0;
-        }
-        if (zombie.y < 0) {
-            zombie.y = (zombie.y + gridSize);
-        }
-
+        Map<Integer, Integer> overWallPos = new HashMap<>(){{
+            put(gridSize, 0);
+            put(-1, gridSize - 1);
+        }};
+        zombie.x = overWallPos.get(zombie.x);
+        zombie.y = overWallPos.get(zombie.y);
 
     }
 
