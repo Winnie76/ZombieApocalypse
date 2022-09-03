@@ -4,7 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.zombie.zombie.model.Cell;
 import com.zombie.zombie.model.Character;
-import com.zombie.zombie.servise.Move;
+import com.zombie.zombie.service.Move;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.zombie.zombie.model.Board.gridSize;
-import static com.zombie.zombie.servise.Move.*;
+import static com.zombie.zombie.service.Move.*;
 
 @RestController
 @RequiredArgsConstructor

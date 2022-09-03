@@ -1,4 +1,4 @@
-package com.zombie.zombie.servise;
+package com.zombie.zombie.service;
 
 import com.zombie.zombie.model.Cell;
 import com.zombie.zombie.model.Character;
