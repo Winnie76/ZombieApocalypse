@@ -54,4 +54,40 @@ class MoveTest {
         assertEquals(1, zombie.x);
         assertEquals(2, zombie.y);
     }
+
+    @Test
+    void moveGridMultipleMoveMultipleOverBorderRight() {
+        Board.gridSize = 3;
+        GameCharacter.action = "RRRR";
+        Move.move(zombie);
+        assertEquals(1, zombie.x);
+        assertEquals(0, zombie.y);
+    }
+
+    @Test
+    void moveGridMultipleMoveMultipleOverBorderDown() {
+        Board.gridSize = 3;
+        GameCharacter.action = "DDDD";
+        Move.move(zombie);
+        assertEquals(0, zombie.x);
+        assertEquals(1, zombie.y);
+    }
+
+    @Test
+    void moveGridMultipleMoveMultipleOverBorderLeft() {
+        Board.gridSize = 3;
+        GameCharacter.action = "LLLL";
+        Move.move(zombie);
+        assertEquals(2, zombie.x);
+        assertEquals(0, zombie.y);
+    }
+
+    @Test
+    void moveGridMultipleMoveMultipleOverBorderUp() {
+        Board.gridSize = 3;
+        GameCharacter.action = "DDDD";
+        Move.move(zombie);
+        assertEquals(0, zombie.x);
+        assertEquals(2, zombie.y);
+    }
 }
