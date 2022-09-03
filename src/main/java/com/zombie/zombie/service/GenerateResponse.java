@@ -3,6 +3,8 @@ package com.zombie.zombie.service;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.zombie.zombie.model.GameCharacter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,14 +15,20 @@ import static com.zombie.zombie.model.Board.gridSize;
 import static com.zombie.zombie.service.Move.*;
 
 public class GenerateResponse {
+    @Data
+    @AllArgsConstructor
+    private static class Pos {
+        int x;
+        int y;
+    }
+
     public static HashMap<Object, Object> generateResponse(String value) {
         initValue(value);
         Move.move(zombie);
         HashMap<Object, Object> map = new HashMap<>();
-        map.put("grid-size", gridSize);
-        map.put("zombies", newZombies);
+        map.put("zombies", newZombies.stream().map(z -> new Pos(z.x, z.y)).toList());
         creatures.removeAll(Move.infectedCreatures);
-        map.put("creatures", creatures);
+        map.put("creatures", creatures.stream().map(c -> new Pos(c.x, c.y)).toList());
         return map;
     }
 
