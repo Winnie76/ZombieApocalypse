@@ -1,6 +1,5 @@
 package com.zombie.zombie.service;
 
-import com.zombie.zombie.model.Cell;
 import com.zombie.zombie.model.Character;
 import lombok.RequiredArgsConstructor;
 
@@ -13,12 +12,12 @@ import static com.zombie.zombie.model.Board.gridSize;
 
 @RequiredArgsConstructor
 public class Move {
-    public static List<Cell.Zombie> newZombies = new ArrayList<>();
-    public static List<Cell.Creature> infectiousCreatures = new ArrayList<>();
-    public static List<Cell.Creature> creatures;
-    public static Cell.Zombie zombie;
+    public static List<Character> newZombies = new ArrayList<>();
+    public static List<Character> infectiousCreatures = new ArrayList<>();
+    public static List<Character> creatures;
+    public static Character zombie;
 
-    public static void move(Cell.Zombie zombie) {
+    public static void move(Character zombie) {
         String directions = Character.action.toUpperCase();
         char[] direction = directions.toCharArray();
         Map<Integer, Integer> overWallPos = new HashMap<>() {{
@@ -52,12 +51,12 @@ public class Move {
     }
 
 
-    private static void infectOthers(Cell.Zombie zombie) {
-        for (Cell.Creature creature : creatures) {
+    private static void infectOthers(Character zombie) {
+        for (Character creature : creatures) {
             if (creature.x == zombie.x && creature.y == zombie.y && !creature.isInfected()) {
                 creature.setInfected(true);
                 infectiousCreatures.add(creature);
-                move(new Cell.Zombie(zombie.x, zombie.y));
+                move(new Character(zombie.x, zombie.y, true));
             }
         }
     }

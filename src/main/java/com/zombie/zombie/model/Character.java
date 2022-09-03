@@ -10,5 +10,12 @@ import javax.validation.constraints.NotBlank;
 public class Character {
     @NotBlank
     public static String action;
+    @NotBlank
+    public int x;
+    @NotBlank
+    public int y;
+    @NotBlank
+    private boolean isInfected = false;
+
 }
 
