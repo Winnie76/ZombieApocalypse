@@ -45,4 +45,13 @@ class MoveTest {
         assertEquals(0, zombie.x);
         assertEquals(1, zombie.y);
     }
+
+    @Test
+    void moveGridMultipleMoveMultiple() {
+        Board.gridSize = 4;
+        GameCharacter.action = "DDR";
+        Move.move(zombie);
+        assertEquals(1, zombie.x);
+        assertEquals(2, zombie.y);
+    }
 }
