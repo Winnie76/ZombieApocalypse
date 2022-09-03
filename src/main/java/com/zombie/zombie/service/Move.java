@@ -1,6 +1,6 @@
 package com.zombie.zombie.service;
 
-import com.zombie.zombie.model.Character;
+import com.zombie.zombie.model.GameCharacter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
@@ -12,19 +12,20 @@ import static com.zombie.zombie.model.Board.gridSize;
 
 @RequiredArgsConstructor
 public class Move {
-    public static List<Character> newZombies = new ArrayList<>();
-    public static List<Character> infectedCreatures = new ArrayList<>();
-    public static List<Character> creatures;
-    public static Character zombie;
+    public static List<GameCharacter> newZombies = new ArrayList<>();
+    public static List<GameCharacter> infectedCreatures = new ArrayList<>();
+    public static List<GameCharacter> creatures;
+    public static GameCharacter zombie;
 
-    public static void move(Character zombie) {
-        String directions = Character.action.toUpperCase();
+    public static void move(GameCharacter zombie) {
+        String directions = GameCharacter.action.toUpperCase();
         char[] direction = directions.toCharArray();
         Map<Integer, Integer> overWallPos = new HashMap<>() {{
             put(gridSize, 0);
             put(-1, gridSize - 1);
         }};
         for (char ch : direction) {
+            // FIXME: Use gridSize to remove overWall checks
             if (ch == 'R') {
                 zombie.x = (zombie.x - 1);
             }
@@ -51,12 +52,12 @@ public class Move {
     }
 
 
-    private static void infectOthers(Character zombie) {
-        for (Character creature : creatures) {
+    private static void infectOthers(GameCharacter zombie) {
+        for (GameCharacter creature : creatures) {
             if (creature.x == zombie.x && creature.y == zombie.y && !creature.isInfected()) {
                 creature.setInfected(true);
                 infectedCreatures.add(creature);
-                move(new Character(zombie.x, zombie.y, true));
+                move(new GameCharacter(zombie.x, zombie.y, true));
             }
         }
     }

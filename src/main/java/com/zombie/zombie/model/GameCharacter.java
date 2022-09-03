@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @AllArgsConstructor
-public class Character {
+public class GameCharacter {
     @NotBlank
     public static String action;
     @NotBlank
