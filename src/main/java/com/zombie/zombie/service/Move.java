@@ -18,7 +18,7 @@ public class Move {
     public static List<Cell.Creature> creatures;
     public static Cell.Zombie zombie;
 
-    public static void moving(Cell.Zombie zombie) {
+    public static void move(Cell.Zombie zombie) {
         String directions = Character.action.toUpperCase();
         char[] direction = directions.toCharArray();
         Map<Integer, Integer> overWallPos = new HashMap<>() {{
@@ -57,7 +57,7 @@ public class Move {
             if (creature.x == zombie.x && creature.y == zombie.y && !creature.isInfected()) {
                 creature.setInfected(true);
                 infectiousCreatures.add(creature);
-                moving(new Cell.Zombie(zombie.x, zombie.y));
+                move(new Cell.Zombie(zombie.x, zombie.y));
             }
         }
     }

@@ -25,7 +25,7 @@ public class ZombieController {
     @PostMapping("/getValue")
     public Map getValue(String value) {
         initValue(value);
-        Move.moving(zombie);
+        Move.move(zombie);
         HashMap<Object, Object> map = new HashMap<>();
         map.put("grid-size", gridSize);
         map.put("zombies", newZombies);
