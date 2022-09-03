@@ -3,10 +3,7 @@ package com.zombie.zombie.service;
 import com.zombie.zombie.model.GameCharacter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.zombie.zombie.model.Board.gridSize;
 
@@ -24,20 +21,16 @@ public class Move {
             put(gridSize, 0);
             put(-1, gridSize - 1);
         }};
+        Map<Character, List<Integer>> action = new HashMap<>() {{
+            put('R', Arrays.asList(1, 0));
+            put('L', Arrays.asList(-1, 0));
+            put('D', Arrays.asList(0, 1));
+            put('U', Arrays.asList(0, -1));
+        }};
+
         for (char ch : direction) {
-            // FIXME: Use gridSize to remove overWall checks
-            if (ch == 'R') {
-                zombie.x = (zombie.x + 1);
-            }
-            if (ch == 'L') {
-                zombie.x = (zombie.x - 1);
-            }
-            if (ch == 'D') {
-                zombie.y = (zombie.y + 1);
-            }
-            if (ch == 'U') {
-                zombie.y = (zombie.y - 1);
-            }
+            zombie.x = action.get(ch).get(0) + zombie.x;
+            zombie.y = action.get(ch).get(1) + zombie.y;
 
             if (zombie.x >= gridSize || zombie.x < 0) {
                 zombie.x = overWallPos.get(zombie.x);
@@ -48,7 +41,6 @@ public class Move {
             infectOthers(zombie);
         }
         newZombies.add(zombie);
-
     }
 
 
