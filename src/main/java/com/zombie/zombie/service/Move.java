@@ -1,9 +1,12 @@
 package com.zombie.zombie.service;
 
+import com.zombie.zombie.dto.GameConfigDto;
 import com.zombie.zombie.dto.GameResultDto;
 import com.zombie.zombie.dto.Mapper;
 import com.zombie.zombie.model.GameCharacter;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -17,11 +20,16 @@ public class Move {
     public static List<GameCharacter> infectedCreatures = new ArrayList<>();
     public static List<GameCharacter> creatures = new ArrayList<>();
     public static GameCharacter zombie;
-    private static Mapper mapper;
+    private static final Mapper mapper = new Mapper();
 
-    public GameResultDto move() {
-        String directions = "RDRU";// GameCharacter.action.toUpperCase();
-        char[] direction = directions.toCharArray();
+    Logger logger = LoggerFactory.getLogger(Logger.class);
+
+    public GameResultDto move(GameConfigDto gameConfigDto) {
+
+        logger.warn("LOGGING:" + gameConfigDto.toString());
+        String commands = gameConfigDto.getCommands();// GameCharacter.action.toUpperCase();
+        GameCharacter zombie = mapper.toZombie(gameConfigDto.getZombie());
+        char[] directions = commands.toCharArray();
         Map<Integer, Integer> overWallPos = new HashMap<>() {{
             put(gridSize, 0);
             put(-1, gridSize - 1);
@@ -33,7 +41,7 @@ public class Move {
             put('U', Arrays.asList(0, -1));
         }};
 
-        for (char ch : direction) {
+        for (char ch : directions) {
             zombie.x = action.get(ch).get(0) + zombie.x;
             zombie.y = action.get(ch).get(1) + zombie.y;
 

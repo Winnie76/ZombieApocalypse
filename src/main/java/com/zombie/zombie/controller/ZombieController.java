@@ -17,7 +17,7 @@ public class ZombieController {
     @ResponseStatus(HttpStatus.CREATED)
     @ExceptionHandler(Exception.class)
     public GameResultDto getValue(@RequestBody GameConfigDto configDto) {
-        return moveService.move();
+        return moveService.move(configDto);
     }
 
 }
