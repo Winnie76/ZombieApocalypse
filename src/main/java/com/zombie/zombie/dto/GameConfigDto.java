@@ -17,7 +17,7 @@ public class GameConfigDto {
     @NotNull
     ZombieDto zombie;
     @NotNull
-    List<CreatureDto> creatureDtoList;
+    List<CreatureDto> creatures;
 
     @NotBlank
     String commands;
