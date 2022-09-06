@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class ZombieControllerTest {
+class ZombieDtoControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
