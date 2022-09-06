@@ -1,21 +1,26 @@
 package com.zombie.zombie.service;
 
+import com.zombie.zombie.dto.GameResultDto;
+import com.zombie.zombie.dto.Mapper;
 import com.zombie.zombie.model.GameCharacter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 import static com.zombie.zombie.model.Board.gridSize;
 
+@Service
 @RequiredArgsConstructor
 public class Move {
     public static List<GameCharacter> newZombies = new ArrayList<>();
     public static List<GameCharacter> infectedCreatures = new ArrayList<>();
     public static List<GameCharacter> creatures = new ArrayList<>();
     public static GameCharacter zombie;
+    private static Mapper mapper;
 
-    public static void move(GameCharacter zombie) {
-        String directions = GameCharacter.action.toUpperCase();
+    public GameResultDto move() {
+        String directions = "RDRU";// GameCharacter.action.toUpperCase();
         char[] direction = directions.toCharArray();
         Map<Integer, Integer> overWallPos = new HashMap<>() {{
             put(gridSize, 0);
@@ -41,15 +46,18 @@ public class Move {
             infectOthers(zombie);
         }
         newZombies.add(zombie);
+        return new GameResultDto(newZombies.stream()
+                .map(z -> mapper.toZombieDto(z)).toList(),
+                creatures.stream().map(c -> mapper.toCreatureDto(c)).toList());
     }
 
 
-    private static void infectOthers(GameCharacter zombie) {
+    private void infectOthers(GameCharacter zombie) {
         for (GameCharacter creature : creatures) {
             if (creature.x == zombie.x && creature.y == zombie.y && !creature.isInfected()) {
                 creature.setInfected(true);
                 infectedCreatures.add(creature);
-                move(new GameCharacter(zombie.x, zombie.y, true));
+                // this.move(new GameCharacter(zombie.x, zombie.y, true));
             }
         }
     }

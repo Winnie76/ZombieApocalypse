@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.zombie.zombie.model.GameCharacter;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 import static com.zombie.zombie.model.Board.gridSize;
 import static com.zombie.zombie.service.Move.*;
 
+@Service
 public class GenerateResponse {
     @Data
     @AllArgsConstructor
@@ -24,7 +26,7 @@ public class GenerateResponse {
 
     public static HashMap<Object, Object> generateResponse(String value) {
         initValue(value);
-        Move.move(zombie);
+        //Move.move(zombie);
         HashMap<Object, Object> map = new HashMap<>();
         map.put("zombies", newZombies.stream().map(z -> new Pos(z.x, z.y)).toList());
         creatures.removeAll(Move.infectedCreatures);
