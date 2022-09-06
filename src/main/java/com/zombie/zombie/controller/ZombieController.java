@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @AllArgsConstructor
 public class ZombieController {
@@ -16,7 +18,7 @@ public class ZombieController {
     @PostMapping("/getValue")
     @ResponseStatus(HttpStatus.CREATED)
     @ExceptionHandler(Exception.class)
-    public GameResultDto getValue(@RequestBody GameConfigDto configDto) {
+    public GameResultDto getValue(@Valid @RequestBody GameConfigDto configDto) {
         return gameService.move(configDto);
     }
 
