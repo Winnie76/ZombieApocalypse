@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class Move {
+public class GameService {
     public List<GameCharacter> unwalkedZombies = new ArrayList<>();
     public List<GameCharacter> allZombies = new ArrayList<>();
     public List<GameCharacter> originalCreatures = new ArrayList<>();

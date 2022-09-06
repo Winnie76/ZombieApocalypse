@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class MoveTest {
+class GameServiceTest {
 
     GameCharacter zombie;
     List<GameCharacter> creatures;
@@ -24,7 +24,7 @@ class MoveTest {
     void noMove() {
         Board.gridSize = 1;
         GameCharacter.action = "";
-        Move.move(zombie);
+        GameService.move(zombie);
         assertEquals(0, zombie.x);
         assertEquals(0, zombie.y);
     }
@@ -33,7 +33,7 @@ class MoveTest {
     void moveGridOne() {
         Board.gridSize = 1;
         GameCharacter.action = "U";
-        Move.move(zombie);
+        GameService.move(zombie);
         assertEquals(0, zombie.x);
         assertEquals(0, zombie.y);
     }
@@ -42,7 +42,7 @@ class MoveTest {
     void moveGridMultiple() {
         Board.gridSize = 4;
         GameCharacter.action = "D";
-        Move.move(zombie);
+        GameService.move(zombie);
         assertEquals(0, zombie.x);
         assertEquals(1, zombie.y);
     }
@@ -51,7 +51,7 @@ class MoveTest {
     void moveGridMultipleMoveMultiple() {
         Board.gridSize = 4;
         GameCharacter.action = "DDR";
-        Move.move(zombie);
+        GameService.move(zombie);
         assertEquals(1, zombie.x);
         assertEquals(2, zombie.y);
     }
@@ -60,7 +60,7 @@ class MoveTest {
     void moveGridMultipleMoveMultipleOverBorderRight() {
         Board.gridSize = 3;
         GameCharacter.action = "RRRR";
-        Move.move(zombie);
+        GameService.move(zombie);
         assertEquals(1, zombie.x);
         assertEquals(0, zombie.y);
     }
@@ -69,7 +69,7 @@ class MoveTest {
     void moveGridMultipleMoveMultipleOverBorderDown() {
         Board.gridSize = 3;
         GameCharacter.action = "DDDD";
-        Move.move(zombie);
+        GameService.move(zombie);
         assertEquals(0, zombie.x);
         assertEquals(1, zombie.y);
     }
@@ -78,7 +78,7 @@ class MoveTest {
     void moveGridMultipleMoveMultipleOverBorderLeft() {
         Board.gridSize = 3;
         GameCharacter.action = "LLLL";
-        Move.move(zombie);
+        GameService.move(zombie);
         assertEquals(2, zombie.x);
         assertEquals(0, zombie.y);
     }
@@ -87,7 +87,7 @@ class MoveTest {
     void moveGridMultipleMoveMultipleOverBorderUp() {
         Board.gridSize = 3;
         GameCharacter.action = "DDDD";
-        Move.move(zombie);
+        GameService.move(zombie);
         assertEquals(0, zombie.x);
         assertEquals(2, zombie.y);
     }
@@ -98,7 +98,7 @@ class MoveTest {
         GameCharacter.action = "DD";
         GameCharacter creature1 = new GameCharacter(1, 1, false);
         GameCharacter creature2 = new GameCharacter(1, 1, false);
-        Move.move(zombie);
+        GameService.move(zombie);
         assertTrue(creature1.isInfected());
     }
 
@@ -110,7 +110,7 @@ class MoveTest {
         GameCharacter.action = "DD";
         GameCharacter creature1 = new GameCharacter(1, 1, false);
         GameCharacter creature2 = new GameCharacter(1, 1, false);
-        Move.move(zombie);
+        GameService.move(zombie);
         assertTrue(creature2.isInfected());
     }
 }
