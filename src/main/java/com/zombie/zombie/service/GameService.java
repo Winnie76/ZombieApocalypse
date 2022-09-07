@@ -3,7 +3,7 @@ package com.zombie.zombie.service;
 import com.zombie.zombie.dto.GameConfigDto;
 import com.zombie.zombie.dto.GameResultDto;
 import com.zombie.zombie.dto.Mapper;
-import com.zombie.zombie.model.GameCharacter;
+import com.zombie.zombie.dto.GameCharacter;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +50,7 @@ public class GameService {
                 infectOthers(zombie, counter);
             }
             if (counter == 0) {
-                allZombies.add(zombie);//将第一个移动后的zombie放在allZombies中
+                allZombies.add(zombie);
             }
             counter += 1;
         }

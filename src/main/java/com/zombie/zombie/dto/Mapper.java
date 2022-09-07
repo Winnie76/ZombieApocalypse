@@ -1,7 +1,6 @@
 package com.zombie.zombie.dto;
 
 
-import com.zombie.zombie.model.GameCharacter;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotNull;

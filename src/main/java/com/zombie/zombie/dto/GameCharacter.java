@@ -1,4 +1,4 @@
-package com.zombie.zombie.model;
+package com.zombie.zombie.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
