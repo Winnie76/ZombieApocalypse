@@ -36,7 +36,7 @@ class GameServiceTest {
         creatures.add(new CreatureDto(0, 0));
         gameConfigDto.setCreatures(creatures);
         gameResult=gameService.move(gameConfigDto);
-        assertEquals("[]", gameResult.getZombies().toString());
+        assertEquals("[ZombieDto(x=0, y=0)]", gameResult.getZombies().toString());
 
     }
 
@@ -48,7 +48,7 @@ class GameServiceTest {
         creatures.add(new CreatureDto(0, 0));
         gameConfigDto.setCreatures(creatures);
         gameResult=gameService.move(gameConfigDto);
-        assertEquals("[ZombieDto(x=0, y=0)]", gameResult.getZombies().toString());
+        assertEquals("[ZombieDto(x=0, y=0), ZombieDto(x=0, y=0)]", gameResult.getZombies().toString());
     }
 
     @Test
@@ -72,7 +72,7 @@ class GameServiceTest {
         gameResult=gameService.move(gameConfigDto);
         assertEquals("[ZombieDto(x=1, y=2)]", gameResult.getZombies().toString());
     }
-//
+    //
     @Test
     void moveGridMultipleMoveMultipleOverBorderRight() {
         gameConfigDto.setGridSize(3);
@@ -81,9 +81,9 @@ class GameServiceTest {
         creatures.add(new CreatureDto(0, 0));
         gameConfigDto.setCreatures(creatures);
         gameResult=gameService.move(gameConfigDto);
-        assertEquals("[ZombieDto(x=1, y=0)]", gameResult.getZombies().toString());
+        assertEquals("[ZombieDto(x=1, y=0), ZombieDto(x=1, y=0)]", gameResult.getZombies().toString());
     }
-//
+    //
     @Test
     void moveGridMultipleMoveMultipleOverBorderDown() {
         gameConfigDto.setGridSize(3);
@@ -92,7 +92,7 @@ class GameServiceTest {
         creatures.add(new CreatureDto(0, 0));
         gameConfigDto.setCreatures(creatures);
         gameResult=gameService.move(gameConfigDto);
-        assertEquals("[ZombieDto(x=0, y=1)]", gameResult.getZombies().toString());
+        assertEquals("[ZombieDto(x=0, y=1), ZombieDto(x=0, y=1)]", gameResult.getZombies().toString());
     }
 
     @Test
@@ -103,7 +103,7 @@ class GameServiceTest {
         creatures.add(new CreatureDto(0, 0));
         gameConfigDto.setCreatures(creatures);
         gameResult=gameService.move(gameConfigDto);
-        assertEquals("[ZombieDto(x=2, y=0)]", gameResult.getZombies().toString());
+        assertEquals("[ZombieDto(x=2, y=0), ZombieDto(x=2, y=0)]", gameResult.getZombies().toString());
     }
 
     @Test
@@ -114,7 +114,7 @@ class GameServiceTest {
         creatures.add(new CreatureDto(0, 0));
         gameConfigDto.setCreatures(creatures);
         gameResult=gameService.move(gameConfigDto);
-        assertEquals("[ZombieDto(x=0, y=2)]", gameResult.getZombies().toString());
+        assertEquals("[ZombieDto(x=0, y=1), ZombieDto(x=0, y=1)]", gameResult.getZombies().toString());
     }
 
     @Test
@@ -126,7 +126,8 @@ class GameServiceTest {
         creatures.add(new CreatureDto(1, 1));
         gameConfigDto.setCreatures(creatures);
         gameResult=gameService.move(gameConfigDto);
-        assertEquals("[zombies=[ZombieDto(x=0, y=2),ZombieDto(x=0, y=0)], creatures=[CreatureDto(x=1, y=1)]]", gameResult.toString());
+        assertEquals("[ZombieDto(x=0, y=0), ZombieDto(x=0, y=2)]", gameResult.getZombies().toString());
+        assertEquals("[CreatureDto(x=1, y=1)]", gameResult.getCreatures().toString());
 
     }
 

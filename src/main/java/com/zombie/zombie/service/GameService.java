@@ -49,10 +49,13 @@ public class GameService {
                 logger.info(String.format("zombie %d moved to (%d, %d).", counter, zombie.x, zombie.y));
                 infectOthers(zombie, counter);
             }
+            if (counter == 0) {
+                allZombies.add(zombie);//将第一个移动后的zombie放在allZombies中
+            }
             counter += 1;
         }
-
-        return new GameResultDto(allZombies.stream().map(mapper::toZombieDto).toList(),
+        return new GameResultDto(allZombies.stream()
+                .map(mapper::toZombieDto).toList(),
                 originalCreatures.stream().map(mapper::toCreatureDto).toList());
     }
 
