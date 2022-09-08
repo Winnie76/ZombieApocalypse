@@ -7,9 +7,15 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @AllArgsConstructor
-public class ZombieDto {
+public class GameCharacter {
     @NotBlank
-    int x;
+    public static String action;
     @NotBlank
-    int y;
+    public int x;
+    @NotBlank
+    public int y;
+    @NotBlank
+    private boolean isInfected = false;
+
 }
+

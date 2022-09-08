@@ -37,6 +37,7 @@ public class GameService {
         String commands = gameConfigDto.getCommands();
         GameCharacter zombie = mapper.toZombie(gameConfigDto.getZombie());
         unwalkedZombies.add(zombie);
+        allZombies.add(zombie);
 
         originalCreatures = gameConfigDto.getCreatures().stream().map(mapper::toCreature).collect(Collectors.toList());
 
